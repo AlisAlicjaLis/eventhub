@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: eventhub
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/event_hub
+    username: event_hub
+    password: EventHub123
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
