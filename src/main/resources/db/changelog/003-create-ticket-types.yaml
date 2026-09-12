@@ -1,0 +1,66 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 003-create-ticket-types
+      author: eventhub
+      changes:
+
+        - createTable:
+            tableName: ticket_types
+            columns:
+
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: event_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: price_amount
+                  type: NUMERIC(19,2)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: price_currency
+                  type: VARCHAR(3)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: total_available
+                  type: INTEGER
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: available
+                  type: INTEGER
+                  constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            baseTableName: ticket_types
+            baseColumnNames: event_id
+            referencedTableName: events
+            referencedColumnNames: id
+            constraintName: fk_ticket_types_event
+
+        - addUniqueConstraint:
+            tableName: ticket_types
+            columnNames: event_id, name
+            constraintName: uk_ticket_types_event_name

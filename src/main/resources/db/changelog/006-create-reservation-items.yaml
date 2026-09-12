@@ -1,0 +1,67 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 006-create-reservation-items
+      author: eventhub
+      changes:
+
+        - createTable:
+            tableName: reservation_items
+            columns:
+
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: reservation_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: ticket_type_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: quantity
+                  type: INTEGER
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: unit_price_amount
+                  type: NUMERIC(19,2)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: unit_price_currency
+                  type: VARCHAR(3)
+                  constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            baseTableName: reservation_items
+            baseColumnNames: reservation_id
+            referencedTableName: reservations
+            referencedColumnNames: id
+            constraintName: fk_reservation_items_reservation
+
+        - addForeignKeyConstraint:
+            baseTableName: reservation_items
+            baseColumnNames: ticket_type_id
+            referencedTableName: ticket_types
+            referencedColumnNames: id
+            constraintName: fk_reservation_items_ticket_type
+
+        - addUniqueConstraint:
+            tableName: reservation_items
+            columnNames: reservation_id, ticket_type_id
+            constraintName: uk_reservation_items_reservation_ticket_type

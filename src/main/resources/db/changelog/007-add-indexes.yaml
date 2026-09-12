@@ -1,0 +1,78 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 007-add-indexes
+      author: eventhub
+      changes:
+
+        - createIndex:
+            tableName: events
+            indexName: idx_events_organizer_id
+            columns:
+              - column:
+                  name: organizer_id
+
+        - createIndex:
+            tableName: events
+            indexName: idx_events_status
+            columns:
+              - column:
+                  name: status
+
+        - createIndex:
+            tableName: events
+            indexName: idx_events_starts_at
+            columns:
+              - column:
+                  name: starts_at
+
+        - createIndex:
+            tableName: ticket_types
+            indexName: idx_ticket_types_event_id
+            columns:
+              - column:
+                  name: event_id
+
+        - createIndex:
+            tableName: customers
+            indexName: idx_customers_email
+            columns:
+              - column:
+                  name: email
+
+        - createIndex:
+            tableName: reservations
+            indexName: idx_reservations_customer_id
+            columns:
+              - column:
+                  name: customer_id
+
+        - createIndex:
+            tableName: reservations
+            indexName: idx_reservations_event_id
+            columns:
+              - column:
+                  name: event_id
+
+        - createIndex:
+            tableName: reservation_items
+            indexName: idx_reservation_items_reservation_id
+            columns:
+              - column:
+                  name: reservation_id
+
+        - createIndex:
+            tableName: reservation_items
+            indexName: idx_reservation_items_ticket_type_id
+            columns:
+              - column:
+                  name: ticket_type_id
+
+        - createIndex:
+            tableName: reservation_attempts
+            indexName: idx_reservation_attempts_customer_event
+            columns:
+              - column:
+                  name: customer_id
+              - column:
+                  name: event_id
